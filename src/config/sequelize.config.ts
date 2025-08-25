@@ -12,7 +12,7 @@ export const sequelizeConfig = (configService: ConfigService): SequelizeModuleOp
     dialect: configService.get<Dialect>('DB_DIALECT') ?? 'mysql',
     synchronize: true,
     autoLoadModels: true,
-    logging: true,
+    logging: false,
     models: [
         Admin,
         Class,
