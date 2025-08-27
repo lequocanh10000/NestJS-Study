@@ -44,9 +44,9 @@ export class Teacher extends Model<Teacher> {
     @Column({
         allowNull: false,
         unique: true,
-        type: DataType.DECIMAL,
+        type: DataType.STRING,
     })
-    phone: number;
+    phone: string;
 
     @Column({
         allowNull: false,

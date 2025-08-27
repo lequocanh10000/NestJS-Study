@@ -31,9 +31,9 @@ export class Student extends Model<Student> {
     @Column({
         allowNull: false,
         unique: true,
-        type: DataType.DECIMAL,
+        type: DataType.STRING,
     })
-    phone: number;
+    phone: string;
 
     // Relationship
     @HasMany(() => StudentClass)
