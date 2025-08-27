@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsDate, IsNotEmpty, IsNumber, IsString, Matches } from "class-validator";
 
 export class CreateStudentDto {
     @IsString({message: 'Tên phải là chuỗi'})
@@ -19,8 +19,7 @@ export class CreateStudentDto {
     @IsNotEmpty({ message: 'Không được bỏ trống'})
     email: string;
 
-    @Type(() => Number)
-    @IsNumber()
+    @IsString()
     @IsNotEmpty({ message: 'Không được bỏ trống'})
-    phone: number;
+    phone: string;
 }
