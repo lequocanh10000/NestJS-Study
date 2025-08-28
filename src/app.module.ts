@@ -2,9 +2,9 @@ import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/c
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule, SequelizeModuleOptions } from '@nestjs/sequelize';
 import { sequelizeConfig } from './config/sequelize.config';
-import { ClassModule } from './modules/class/class.module';
 import { StudentModule } from './modules/student/student.module';
 import { StartTimingMiddleware } from './common/middlewares/start-timing.middleware';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -14,8 +14,8 @@ import { StartTimingMiddleware } from './common/middlewares/start-timing.middlew
       useFactory: (configService: ConfigService): SequelizeModuleOptions =>
         sequelizeConfig(configService),
     }),
-    ClassModule,
     StudentModule,
+    AdminModule,
   ],
 })
 export class AppModule implements NestModule{
