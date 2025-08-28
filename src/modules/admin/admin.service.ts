@@ -26,12 +26,7 @@ export class AdminService {
         if(!isCorrectPassword) {
             throw new BadRequestException('Sai mật khẩu');
         }
-        const plainAdmin = admin.getAdminWithoutPassword();
-        const accessToken = await this.jwtService.signAsync({id: plainAdmin.id, role: 'admin'});
-        return {
-            message: 'Đăng nhập thành công',
-            data: accessToken,
-        }
+        return admin;
     }
 
     async registerAdmin(registerAdminDto: RegisterAdminDto) {
