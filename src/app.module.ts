@@ -5,6 +5,7 @@ import { sequelizeConfig } from './config/sequelize.config';
 import { StudentModule } from './modules/student/student.module';
 import { StartTimingMiddleware } from './common/middlewares/start-timing.middleware';
 import { AdminModule } from './modules/admin/admin.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AdminModule } from './modules/admin/admin.module';
     }),
     StudentModule,
     AdminModule,
+    AuthModule,
   ],
 })
 export class AppModule implements NestModule{
