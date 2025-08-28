@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
+import { UpdateStudentDto } from './dto/update-student.dto';
 
 @Controller('student')
 export class StudentController {
@@ -17,7 +18,17 @@ export class StudentController {
   }
 
   @Get('one/:id')
-  async getStudentById(@Param('id', ParseIntPipe) id: number) {
+  async getStudentById(@Param('id') id: number) {
     return await this.studentService.findOne(id);
+  }
+
+  @Patch('update/:id')
+  async update(@Body() updateStudentDto: UpdateStudentDto, @Param('id') id: number) {
+    return this.studentService.update(updateStudentDto, id);
+  }
+
+  @Delete('delete/:id')
+  async delete(@Param('id') id: number) {
+    return this.studentService.delete(id);
   }
 }
