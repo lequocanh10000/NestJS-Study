@@ -1,25 +1,18 @@
-import { Type } from "class-transformer";
-import { IsDate, IsNotEmpty, IsNumber, IsString, Matches } from "class-validator";
+import { DateRequired, StringRequired } from "src/common/decorators";
 
 export class CreateStudentDto {
-    @IsString({message: 'Tên phải là chuỗi'})
-    @IsNotEmpty({ message: 'Không được bỏ trống'})
+    @StringRequired('Họ và tên')
     fullName: string;
 
-    @Type(() => Date)
-    @IsDate()
-    @IsNotEmpty({ message: 'Không được bỏ trống'})
+    @DateRequired('Ngày sinh')
     dob: Date;
 
-    @IsString()
-    @IsNotEmpty({ message: 'Không được bỏ trống'})
+    @StringRequired('Địa chỉ')
     address: string;
 
-    @IsString()
-    @IsNotEmpty({ message: 'Không được bỏ trống'})
+    @StringRequired('Email')
     email: string;
 
-    @IsString()
-    @IsNotEmpty({ message: 'Không được bỏ trống'})
+    @StringRequired('Số điện thoại')
     phone: string;
 }
