@@ -2,12 +2,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Admin } from 'src/models';
 import { RegisterAdminDto } from './dto/register-admin.dto';
+import { JwtService } from '@nestjs/jwt';
 
 
 @Injectable()
 export class AdminService {
     constructor(
         @InjectModel(Admin) private readonly adminModel: typeof Admin,
+        private readonly jwtService: JwtService
     ) {}
 
     async findByEmail(email: string) {
@@ -24,10 +26,11 @@ export class AdminService {
         if(!isCorrectPassword) {
             throw new BadRequestException('Sai mật khẩu');
         }
-
+        const plainAdmin = admin.getAdminWithoutPassword();
+        const accessToken = await this.jwtService.signAsync({id: plainAdmin.id, role: 'admin'});
         return {
             message: 'Đăng nhập thành công',
-            data: admin.getAdminWithoutPassword(),
+            data: accessToken,
         }
     }
 
