@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { JwtGuard } from '../auth/guards/jwt.guard';
 
 @ApiTags('Học sinh')
 @Controller('student')
@@ -23,6 +24,7 @@ export class StudentController {
     return await this.studentService.createStudent(createStudentDto);
   }
 
+  @UseGuards(JwtGuard)
   @Get('all')
   async getAllStudents() {
     return await this.studentService.findAll();
