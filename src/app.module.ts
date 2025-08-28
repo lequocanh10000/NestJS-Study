@@ -6,6 +6,7 @@ import { StudentModule } from './modules/student/student.module';
 import { StartTimingMiddleware } from './common/middlewares/start-timing.middleware';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -18,6 +19,16 @@ import { AuthModule } from './modules/auth/auth.module';
     StudentModule,
     AdminModule,
     AuthModule,
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: {
+          expiresIn: configService.get<string>('JWT_EXPIRES_IN')
+        },
+      }),
+      global: true
+    })
   ],
 })
 export class AppModule implements NestModule{
